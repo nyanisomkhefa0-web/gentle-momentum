@@ -1,7 +1,6 @@
 {
   "config": {
-    "legacy-peer-deps": true
-  },
+    "legacy-peer-deps": true,
   "name": "tanstack_start_ts",
   "private": true,
   "sideEffects": false,
