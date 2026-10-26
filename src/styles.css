@@ -150,3 +150,7 @@
 @utility animate-pop {
   animation: mg-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
+
+@utility safe-pb {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

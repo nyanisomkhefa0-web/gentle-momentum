@@ -1,6 +1,7 @@
 import { n as __require, r as __toESM, t as __commonJSMin } from "./rolldown-runtime-C7HZzL1F.js";
-import { A as invariant, C as _getRenderedMatches, E as createServerHistory, H as isDangerousProtocol, I as decodePath, J as rootRouteId, K as isRedirect, V as hasKeys, W as isPromise, X as require_react, Y as isNotFound, _ as resolveManifestAssetLink, b as useLayoutEffect, c as routerContext, f as createInlineCssPlaceholderAsset, g as getStylesheetHref, h as getScriptPreloadAttrs, j as createSieveCache, k as executeRewriteInput, p as createInlineCssStyleAsset, r as renderPending, s as useRouter, t as Match, u as CatchBoundary, v as resolveManifestCssLink, x as waitForReason } from "./Match-ig5xqpB3.js";
-import { t as require_jsx_runtime } from "./jsx-runtime-DPOcU5hC.js";
+import { i as require_react, n as routerContext, r as require_jsx_runtime, t as useRouter } from "./useRouter-D4NTYr1m.js";
+import { C as executeRewriteInput, D as rootRouteId, O as isNotFound, T as isRedirect, _ as _getRenderedMatches, b as createServerHistory, d as resolveManifestAssetLink, f as resolveManifestCssLink, h as waitForReason, i as CatchBoundary, l as getScriptPreloadAttrs, m as useLayoutEffect, o as createInlineCssPlaceholderAsset, r as renderPending, s as createInlineCssStyleAsset, t as Match, u as getStylesheetHref, w as createSieveCache } from "./Match-D-2S4IRz.js";
+import { E as isDangerousProtocol, O as isPromise, o as invariant, v as decodePath, w as hasKeys } from "./useSelector-5uRv9qLL.js";
 import { t as createCsrfMiddleware } from "./createCsrfMiddleware-B2To0gPJ.js";
 import { PassThrough, Readable } from "node:stream";
 import { AsyncLocalStorage } from "node:async_hooks";
@@ -14809,7 +14810,7 @@ var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 * the dev styles URL for route-scoped CSS collection.
 */
 async function getStartManifest(matchedRoutes) {
-	const { tsrStartManifest } = await import("./_tanstack-start-manifest_v-DFtnPjSM.js");
+	const { tsrStartManifest } = await import("./_tanstack-start-manifest_v-DXZii5h_.js");
 	const startManifest = tsrStartManifest();
 	let routes = startManifest.routes;
 	routes[rootRouteId];
@@ -16000,8 +16001,8 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-MnYJBjgD.js"),
-		import("./start-DdV1XXw9.js"),
+		import("./router-DNFJZ87-.js"),
+		import("./start-BTkD08cz.js"),
 		import("./empty-plugin-adapters-D9UWiqvJ.js")
 	]);
 	return {

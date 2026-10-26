@@ -1,7 +1,9 @@
 import { r as __toESM } from "./rolldown-runtime-C7HZzL1F.js";
-import { A as invariant, B as getUrlScheme, D as createNonReactiveMutableStore, F as trimPathRight, G as replaceEqualDeep$1, H as isDangerousProtocol, J as rootRouteId, L as deepEqual, M as cleanPath, N as removeTrailingSlash, O as createNonReactiveReadonlyStore, P as trimPathLeft, R as escapeHtml, S as _getAssetMatches, U as isModuleNotFoundError, X as require_react, a as dummyMatchContext, d as appendUniqueUserTags, h as getScriptPreloadAttrs, i as useSelector, l as useHydrated, m as getAssetCrossOrigin, n as Outlet, o as matchContext, q as redirect, s as useRouter, v as resolveManifestCssLink, w as RouterCore, y as reactUse, z as functionalUpdate$1 } from "./Match-ig5xqpB3.js";
-import { t as require_jsx_runtime } from "./jsx-runtime-DPOcU5hC.js";
-//#endregion
+import { i as require_react, r as require_jsx_runtime, t as useRouter } from "./useRouter-D4NTYr1m.js";
+import { D as rootRouteId, E as redirect, S as createNonReactiveReadonlyStore, a as appendUniqueUserTags, c as getAssetCrossOrigin, f as resolveManifestCssLink, g as _getAssetMatches, l as getScriptPreloadAttrs, n as Outlet, p as reactUse, v as RouterCore, x as createNonReactiveMutableStore } from "./Match-D-2S4IRz.js";
+import { D as isModuleNotFoundError, a as useHydrated, m as trimPathRight, o as invariant, p as trimPathLeft, s as cleanPath, x as escapeHtml } from "./useSelector-5uRv9qLL.js";
+import { n as useMatch, t as Link } from "./link-hSMqQ_mo.js";
+import { t as useNavigate } from "./useNavigate-CoVVJwJ3.js";
 //#region node_modules/@tanstack/router-core/dist/esm/ssr/bodyScripts.js
 function getSsrBodyScriptParts(matches, manifest, nonce, routeScriptAttrs) {
 	const assetMatches = _getAssetMatches(matches);
@@ -306,40 +308,6 @@ function purgeDeps(sub) {
 	while (dep !== void 0) dep = unlink(dep, sub);
 }
 //#endregion
-//#region node_modules/@tanstack/react-router/dist/esm/useMatch.js
-var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
-var dummyMatch = {};
-function useStructuralSharing(opts, router) {
-	const previousResult = import_react.useRef();
-	return (slice) => {
-		const selected = opts?.select ? opts.select(slice) : slice;
-		if (opts?.structuralSharing ?? router.options.defaultStructuralSharing) return previousResult.current = replaceEqualDeep$1(previousResult.current, selected);
-		return selected;
-	};
-}
-/**
-* Read and select the nearest or targeted route match.
-* @link https://tanstack.com/router/latest/docs/framework/react/api/router/useMatchHook
-*/
-function useMatch(opts) {
-	const router = useRouter();
-	const nearestRouteId = import_react.useContext(opts.from ? dummyMatchContext : matchContext);
-	const routeId = opts.from ?? nearestRouteId;
-	const matchStore = router.stores.getMatchStore(routeId);
-	{
-		const match = matchStore.get();
-		if (!match) {
-			if (opts.shouldThrow ?? true) invariant();
-			return;
-		}
-		return opts.select ? opts.select(match) : match;
-	}
-	const selector = useStructuralSharing(opts, router);
-	const matchSelection = useSelector(matchStore, (match) => match ? selector(match) : dummyMatch);
-	if (matchSelection !== dummyMatch) return matchSelection;
-	if (opts.shouldThrow ?? true) invariant();
-}
-//#endregion
 //#region node_modules/@tanstack/react-router/dist/esm/useLoaderData.js
 /**
 * Read and select the current route's loader data with type‑safety.
@@ -436,31 +404,6 @@ function useSearch(opts) {
 	});
 }
 //#endregion
-//#region node_modules/@tanstack/react-router/dist/esm/useNavigate.js
-/**
-* Imperative navigation hook.
-*
-* Returns a stable `navigate(options)` function to change the current location
-* programmatically. Prefer the `Link` component for user-initiated navigation,
-* and use this hook from effects, callbacks, or handlers where imperative
-* navigation is required.
-*
-* Options:
-* - `from`: Optional route base used to resolve relative `to` paths.
-*
-* @returns A function that accepts `NavigateOptions`.
-* @link https://tanstack.com/router/latest/docs/framework/react/api/router/useNavigateHook
-*/
-function useNavigate(_defaultOpts) {
-	const router = useRouter();
-	return import_react.useCallback((options) => {
-		return router.navigate({
-			...options,
-			from: options.from ?? _defaultOpts?.from
-		});
-	}, [_defaultOpts?.from, router]);
-}
-//#endregion
 //#region node_modules/@tanstack/react-router/dist/esm/useRouteContext.js
 function useRouteContext(opts) {
 	return useMatch({
@@ -469,143 +412,10 @@ function useRouteContext(opts) {
 	});
 }
 //#endregion
-//#region node_modules/@tanstack/react-router/dist/esm/link.js
-var import_jsx_runtime = require_jsx_runtime();
-function resolveExternalLink(to, protocolAllowlist) {
-	const scheme = typeof to === "string" && getUrlScheme(to);
-	if (!scheme) return;
-	if (!protocolAllowlist.has(scheme)) return null;
-	return to;
-}
-function resolveIsActive(location, next, activeOptions, basepath, isHydrated) {
-	const currentPath = removeTrailingSlash(location.pathname, basepath);
-	const nextPath = removeTrailingSlash(next.pathname, basepath);
-	if (activeOptions?.exact ? currentPath !== nextPath : !(currentPath.startsWith(nextPath) && (currentPath.length === nextPath.length || currentPath[nextPath.length] === "/"))) return false;
-	if (activeOptions?.includeSearch ?? true) {
-		if (!deepEqual(location.search, next.search, !activeOptions?.exact, activeOptions?.explicitUndefined)) return false;
-	}
-	if (activeOptions?.includeHash) return isHydrated && location.hash === next.hash;
-	return true;
-}
-function useLinkProps(options, forwardedRef, host) {
-	return getServerLinkProps(useRouter(), options, forwardedRef, host);
-}
-var STATIC_EMPTY_OBJECT = {};
-var STATIC_ACTIVE_OBJECT = { className: "active" };
-var ROUTER_OPTION_KEYS = /* @__PURE__ */ new Set([
-	"to",
-	"params",
-	"search",
-	"hash",
-	"state",
-	"mask",
-	"from",
-	"unsafeRelative",
-	"_fromLocation",
-	"reloadDocument",
-	"preload",
-	"preloadDelay",
-	"preloadIntentProximity",
-	"hashScrollIntoView",
-	"replace",
-	"startTransition",
-	"resetScroll",
-	"viewTransition",
-	"ignoreBlocker",
-	"activeProps",
-	"inactiveProps",
-	"activeOptions",
-	"_asChild"
-]);
-function collectElementProps(options, host) {
-	const props = {};
-	for (const key in options) {
-		if (ROUTER_OPTION_KEYS.has(key) || key === "type" && host !== void 0 || key === "disabled" && host === "a") continue;
-		props[key] = options[key];
-	}
-	return props;
-}
-function applyLinkState(props, options, isActive, href, linkDisabled, host) {
-	const { activeProps, inactiveProps, className, style, target } = options;
-	const stateProps = functionalUpdate$1(isActive ? activeProps : inactiveProps, {}) ?? (isActive ? STATIC_ACTIVE_OBJECT : STATIC_EMPTY_OBJECT);
-	Object.assign(props, stateProps);
-	props.href = href;
-	if (host !== "a") props.disabled = linkDisabled;
-	props.target = target;
-	const stateStyle = stateProps.style;
-	if (style || stateStyle) props.style = style && stateStyle ? {
-		...style,
-		...stateStyle
-	} : style || stateStyle;
-	const stateClassName = stateProps.className;
-	if (className || stateClassName) props.className = className ? stateClassName ? `${className} ${stateClassName}` : className : stateClassName;
-	if (linkDisabled) {
-		props.role = "link";
-		props["aria-disabled"] = true;
-	}
-	if (isActive) {
-		props["data-status"] = "active";
-		props["aria-current"] = "page";
-	}
-	return props;
-}
-function getServerLinkProps(router, options, forwardedRef, host) {
-	const { to, disabled, activeOptions } = options;
-	const directExternalLink = resolveExternalLink(to, router.protocolAllowlist);
-	const next = directExternalLink === void 0 ? router.buildLocation(options) : void 0;
-	const hrefOption = next ? getHrefOption(next, router, disabled) : directExternalLink ?? void 0;
-	const linkDisabled = disabled || !hrefOption;
-	const externalLink = directExternalLink ?? (hrefOption && getUrlScheme(hrefOption) ? hrefOption : void 0);
-	const props = collectElementProps(options, host);
-	props.ref = forwardedRef;
-	if (externalLink) {
-		props.href = externalLink;
-		return props;
-	}
-	return applyLinkState(props, options, !!next && !(!disabled && !hrefOption) && resolveIsActive(router.stores.location.get(), next, activeOptions, router.basepath, false), hrefOption, linkDisabled, host);
-}
-function getHrefOption(next, router, disabled) {
-	if (disabled) return;
-	const location = next.maskedLocation ?? next;
-	const href = location.external ? location.publicHref : router.history.createHref(location.publicHref) || "/";
-	if ((location.external || href !== location.publicHref) && isDangerousProtocol(href, router.protocolAllowlist)) return;
-	return href;
-}
-/**
-* A strongly-typed anchor component for declarative navigation.
-* Handles path, search, hash and state updates with optional route preloading
-* and active-state styling.
-*
-* Props:
-* - `preload`: Controls route preloading (eg. 'intent', 'render', 'viewport', true/false)
-* - `preloadDelay`: Delay in ms before preloading on focus, hover, or viewport entry
-* - `activeProps`/`inactiveProps`: Additional props merged when link is active/inactive
-* - `resetScroll`/`hashScrollIntoView`: Control scroll behavior on navigation
-* - `viewTransition`/`startTransition`: Use View Transitions/React transitions for navigation
-* - `ignoreBlocker`: Bypass registered blockers
-*
-* @returns An anchor-like element that navigates without full page reloads.
-* @link https://tanstack.com/router/latest/docs/framework/react/api/router/linkComponent
-*/
-var Link = import_react.memo(import_react.forwardRef((props, ref) => {
-	const host = props._asChild || "a";
-	const linkProps = useLinkProps(props, ref, host);
-	const children = typeof props.children === "function" ? props.children({ isActive: linkProps["data-status"] === "active" }) : props.children;
-	return import_react.createElement(host, linkProps, children);
-}), areLinkPropsEqual);
-function areLinkPropsEqual(prev, next) {
-	let extraKeys = 0;
-	for (const key in next) {
-		extraKeys++;
-		if (prev[key] === next[key]) continue;
-		if (!ROUTER_OPTION_KEYS.has(key) || !deepEqual(prev[key], next[key], false, true)) return false;
-	}
-	for (const _key in prev) extraKeys--;
-	return extraKeys === 0;
-}
-//#endregion
 //#region node_modules/@tanstack/react-router/dist/esm/route.js
-var Route$2 = class extends BaseRoute {
+var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
+var import_jsx_runtime = require_jsx_runtime();
+var Route$7 = class extends BaseRoute {
 	/**
 	* @deprecated Use the `createRoute` function instead.
 	*/
@@ -671,7 +481,7 @@ var Route$2 = class extends BaseRoute {
 * @link https://tanstack.com/router/latest/docs/framework/react/api/router/createRouteFunction
 */
 function createRoute(options) {
-	return new Route$2(options);
+	return new Route$7(options);
 }
 /**
 * Creates a root route factory that requires a router context type.
@@ -4373,7 +4183,7 @@ var QueryClient = class {
 };
 //#endregion
 //#region src/styles.css?url
-var styles_default = "/assets/styles-DBCbxf_4.css";
+var styles_default = "/assets/styles-BddMLtKx.css";
 //#endregion
 //#region src/lib/lovable-error-reporting.ts
 function reportLovableError(error, context = {}) {
@@ -4477,7 +4287,7 @@ function ErrorComponent({ error, reset }) {
 		})
 	});
 }
-var Route$1 = createRootRouteWithContext()({
+var Route$6 = createRootRouteWithContext()({
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -4536,7 +4346,7 @@ function RootShell({ children }) {
 	});
 }
 function RootComponent() {
-	const { queryClient } = Route$1.useRouteContext();
+	const { queryClient } = Route$6.useRouteContext();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QueryClientProvider, {
 		client: queryClient,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
@@ -4544,15 +4354,63 @@ function RootComponent() {
 }
 //#endregion
 //#region src/routes/index.tsx
-var $$splitComponentImporter = () => import("./routes-DG7Xe5r3.js");
+var $$splitComponentImporter$5 = () => import("./routes-DICSfJfE.js");
+var Route$5 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$5, "component") });
+//#endregion
+//#region src/routes/auth.tsx
+var $$splitComponentImporter$4 = () => import("./auth-DlyvReHS.js");
+var Route$4 = createFileRoute("/auth")({ component: lazyRouteComponent($$splitComponentImporter$4, "component") });
+//#endregion
+//#region src/routes/goals.tsx
+var $$splitComponentImporter$3 = () => import("./goals-CZwaf2UA.js");
+var Route$3 = createFileRoute("/goals")({ component: lazyRouteComponent($$splitComponentImporter$3, "component") });
+//#endregion
+//#region src/routes/mood.tsx
+var $$splitComponentImporter$2 = () => import("./mood-BfR5KRP9.js");
+var Route$2 = createFileRoute("/mood")({ component: lazyRouteComponent($$splitComponentImporter$2, "component") });
+//#endregion
+//#region src/routes/onboarding.tsx
+var $$splitComponentImporter$1 = () => import("./onboarding-BJU7PJcg.js");
+var Route$1 = createFileRoute("/onboarding")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
+//#endregion
+//#region src/routes/profile.tsx
+var $$splitComponentImporter = () => import("./profile-nQpq71Pm.js");
+var Route = createFileRoute("/profile")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 //#endregion
 //#region src/routeTree.gen.ts
-var rootRouteChildren = { IndexRoute: createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") }).update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => Route$1
-}) };
-var routeTree = Route$1._addFileChildren(rootRouteChildren)._addFileTypes();
+var rootRouteChildren = {
+	IndexRoute: Route$5.update({
+		id: "/",
+		path: "/",
+		getParentRoute: () => Route$6
+	}),
+	AuthRoute: Route$4.update({
+		id: "/auth",
+		path: "/auth",
+		getParentRoute: () => Route$6
+	}),
+	GoalsRoute: Route$3.update({
+		id: "/goals",
+		path: "/goals",
+		getParentRoute: () => Route$6
+	}),
+	MoodRoute: Route$2.update({
+		id: "/mood",
+		path: "/mood",
+		getParentRoute: () => Route$6
+	}),
+	OnboardingRoute: Route$1.update({
+		id: "/onboarding",
+		path: "/onboarding",
+		getParentRoute: () => Route$6
+	}),
+	ProfileRoute: Route.update({
+		id: "/profile",
+		path: "/profile",
+		getParentRoute: () => Route$6
+	})
+};
+var routeTree = Route$6._addFileChildren(rootRouteChildren)._addFileTypes();
 //#endregion
 //#region src/router.tsx
 var getRouter = () => {
