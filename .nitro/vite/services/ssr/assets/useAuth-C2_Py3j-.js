@@ -1,6 +1,6 @@
 import { r as __toESM } from "./rolldown-runtime-C7HZzL1F.js";
 import { i as require_react, r as require_jsx_runtime } from "./useRouter-D4NTYr1m.js";
-import { t as supabase } from "./client-DFgLjT3d.js";
+import { t as supabase } from "./client-BJ3Uvbji.js";
 //#region node_modules/@radix-ui/react-compose-refs/dist/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var __defProp$1 = Object.defineProperty;

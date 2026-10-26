@@ -4354,27 +4354,27 @@ function RootComponent() {
 }
 //#endregion
 //#region src/routes/index.tsx
-var $$splitComponentImporter$5 = () => import("./routes-DICSfJfE.js");
+var $$splitComponentImporter$5 = () => import("./routes-BH52-pY2.js");
 var Route$5 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$5, "component") });
 //#endregion
 //#region src/routes/auth.tsx
-var $$splitComponentImporter$4 = () => import("./auth-DlyvReHS.js");
+var $$splitComponentImporter$4 = () => import("./auth-BqSvViBJ.js");
 var Route$4 = createFileRoute("/auth")({ component: lazyRouteComponent($$splitComponentImporter$4, "component") });
 //#endregion
 //#region src/routes/goals.tsx
-var $$splitComponentImporter$3 = () => import("./goals-CZwaf2UA.js");
+var $$splitComponentImporter$3 = () => import("./goals-Nr1SCCeE.js");
 var Route$3 = createFileRoute("/goals")({ component: lazyRouteComponent($$splitComponentImporter$3, "component") });
 //#endregion
 //#region src/routes/mood.tsx
-var $$splitComponentImporter$2 = () => import("./mood-BfR5KRP9.js");
+var $$splitComponentImporter$2 = () => import("./mood-Bm1EiR8d.js");
 var Route$2 = createFileRoute("/mood")({ component: lazyRouteComponent($$splitComponentImporter$2, "component") });
 //#endregion
 //#region src/routes/onboarding.tsx
-var $$splitComponentImporter$1 = () => import("./onboarding-BJU7PJcg.js");
+var $$splitComponentImporter$1 = () => import("./onboarding-CSUv_p8M.js");
 var Route$1 = createFileRoute("/onboarding")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
 //#endregion
 //#region src/routes/profile.tsx
-var $$splitComponentImporter = () => import("./profile-nQpq71Pm.js");
+var $$splitComponentImporter = () => import("./profile-COVnSwfs.js");
 var Route = createFileRoute("/profile")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 //#endregion
 //#region src/routeTree.gen.ts

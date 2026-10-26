@@ -1,4 +1,4 @@
-import { n as createLucideIcon } from "./AppShell-DJ6U_uFV.js";
+import { n as createLucideIcon } from "./AppShell-CxXfIfk9.js";
 /**
 * @license lucide-react v0.575.0 - ISC
 *
